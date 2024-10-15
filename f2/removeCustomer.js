@@ -12,6 +12,15 @@ let customers = [
 ]
 
 function removeCustomer(id) {
-    //TODO
+    const customerIndex = customers.findIndex(customer => customer.id === id);
+    
+    if (customerIndex !== -1) {
+        // Eltávolítjuk a vevőt
+        customers.splice(customerIndex, 1);
+        return [...customers]; // Visszaadjuk a frissített tömb másolatát
+    }
+    
+    return false; // Ha a vevő nem található
 }
+
 module.exports = removeCustomer;

@@ -11,14 +11,39 @@ let customers = [
     {id:10, name:"Jonas Tungate", age:83, address:{city:"Padangulaktanding", street:"224 Manley Drive", house:49}, newsLetter: true}
 ]
 function isAddress(address) {    
-    //TODO
+    if (typeof address !== 'object' || address === null) return false;
+    const { city, street, house } = address;
+    return (
+        typeof city === 'string' &&
+        typeof street === 'string' &&
+        typeof house === 'number'
+    );
 }
 
 function isCustomer(name, age, address, newsLetter) {    
-    //TODO
+    if (typeof name !== 'string') return false;
+    if (typeof age !== 'number' || age < 0 || age > 120) return false;
+    if (!isAddress(address)) return false;
+    return typeof newsLetter === 'boolean';
 }
 function modifyCustomer (customer){
-    //TODO
+     // Ellenőrizzük a customer érvényességét
+     if (!isCustomer(customer.name, customer.age, customer.address, customer.newsLetter)) {
+        return undefined; // Ha érvénytelen, adjunk vissza undefined-ot
+    }
+
+    // Megkeressük a vevőt az id alapján
+    const existingCustomerIndex = customers.findIndex(c => c.id === customer.id);
+
+    if (existingCustomerIndex === -1) {
+        // Ha a vevő nem található, adjuk hozzá az új vevőt
+        customers.push(customer);
+    } else {
+        // Módosítjuk a vevő adatait
+        customers[existingCustomerIndex] = customer;
+    }
+
+    return customers; // Visszaadjuk a frissített vevőket
 }
 
 module.exports = modifyCustomer;

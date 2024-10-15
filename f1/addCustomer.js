@@ -12,14 +12,54 @@ let customers = [
 ]
 
 function isAddress(address) {
-    //TODO
+    return typeof address === 'object' &&
+    typeof address.city === 'string' &&
+    typeof address.street === 'string' &&
+    typeof address.house === 'number';
 }
 
 function isCustomer(name, age, address, newsLetter) {
-    //TODO
+       
+        if (typeof name !== 'string' || name.trim() === '') {
+            return false; 
+        }
+    
+      
+        if (typeof age !== 'number' || age <= 0) {
+            return false; 
+        }
+    
+        if (!isAddress(address)) {
+            return false;
+        }
+    
+       
+        if (typeof newsLetter !== 'boolean') {
+            return false; 
+        }
+    
+       
+        return true;
 }
 
 function addCustomer(name, age, address, newsLetter) {
-    //TODO
+  
+   if (typeof name !== 'string' || typeof age !== 'number' || !isAddress(address) || typeof newsLetter !== 'boolean') {
+    return false; 
 }
+
+const newCustomer = {
+    id: customers.length + 1,
+    name: name,
+    age: age,
+    address: address,
+    newsLetter: newsLetter
+};
+
+customers.push(newCustomer);
+return customers; 
+        
+    
+    }
+
 module.exports = addCustomer;
